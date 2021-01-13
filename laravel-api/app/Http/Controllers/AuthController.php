@@ -27,8 +27,14 @@ class AuthController extends Controller
             $token = $user->createToken($user->email.'-'.now(), [$this->scope]);
 
             return response()->json([
-                'token' => $token->accessToken
-            ]);
+                'token' => $token->accessToken,
+                'response_code' => 1
+            ],200);
+        } else {
+            return response()->json([
+                'message' => "Invalid email or password",
+                'response_code' => 0
+            ],403);
         }
     }
 }

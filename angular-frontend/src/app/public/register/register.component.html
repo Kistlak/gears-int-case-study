@@ -1,0 +1,49 @@
+<h1>Please Register</h1>
+
+<p *ngIf="regErr" style="color: red">
+    {{errText.password}} <br>
+    {{errText.email}}
+</p>
+
+<form [formGroup]="form" (submit)="submit()">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" formControlName="first_name" class="form-control" id="first_name"placeholder="Enter first name">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" formControlName="last_name" class="form-control" id="last_name" placeholder="Enter Last Name">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="password_confirmation">Password Confirm</label>
+                <input type="password" formControlName="password_confirmation" class="form-control" id="password_confirmation" placeholder="Password">
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Register</button>
+</form>

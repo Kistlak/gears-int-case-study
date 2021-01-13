@@ -13,9 +13,41 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Ramsey\Collection\Collection;
 
 class AuthorController extends Controller
 {
+    public function register_user(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6'
+        ]);
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'slug' => Str::slug($request->first_name.' '.$request->last_name, '-'),
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        $role = new Role;
+        $role->role = "author";
+        $user->role()->save($role);
+
+        $status = new StatusAuthor();
+        $status->status = "active";
+        $user->status()->save($status);
+
+        return response()->json([
+            'response' => $user,
+            'response_code' => 1
+        ], 200);
+    }
+
     public function add_books(Request $request)
     {
         $request->validate([
@@ -162,27 +194,13 @@ class AuthorController extends Controller
         ]);
 
         $search_keyword = $request->search_book;
-        $book_results = [];
-        $search_response = '';
-
-        $books_from_authors = DB::table('books')
-            ->join('users','users.id','books.user_id')
-            ->join('roles','roles.user_id','users.id')
-            ->join('status_authors','status_authors.user_id','roles.user_id')
-            ->select('users.first_name','users.last_name', 'users.slug', 'roles.*', 'books.*', 'status_authors.*')
-            ->where('roles.role', '=', 'author')
-            ->where('status_authors.status', '=', 'active')
-            ->where('users.first_name', 'like', '%' . $search_keyword . '%')
-//            ->orWhere('users.slug', 'like', '%' . $search_keyword . '%')
-            ->orWhere('users.last_name', 'like', '%' . $search_keyword . '%')
-            ->orWhere('books.book_name', 'like', '%' . $search_keyword . '%')
-            ->get();
 
         $find_books_from_authors = DB::table('users')
             ->join('books', 'users.id', '=', 'books.user_id')
             ->join('roles', 'users.id', '=', 'roles.user_id')
             ->join('status_authors', 'users.id', '=', 'status_authors.user_id')
             ->select('users.first_name', 'users.last_name', 'users.slug', 'books.*', 'roles.*', 'status_authors.*')
+            ->where('status_authors.status', '=', 'active')
             ->where('roles.role', '=', 'author')
             ->where('users.first_name', 'like', '%' . $search_keyword . '%')
             ->orWhere('users.slug', 'like', '%' . $search_keyword . '%')
@@ -190,23 +208,28 @@ class AuthorController extends Controller
             ->orWhere('books.book_name', 'like', '%' . $search_keyword . '%')
             ->get();
 
+        $collection = collect($find_books_from_authors);
 
-        if(count($find_books_from_authors) !== 0) {
-            foreach($find_books_from_authors as $find_books_from_author) {
-                if($find_books_from_author->status == "active") {
-                    array_push($book_results, $find_books_from_author);
-                    $search_response = $book_results;
-                } else {
-                    $search_response = 'Nothing Found';
-                    break;
-                }
-            }
+        $filtered = $collection->filter(function ($value, $key) {
+            return $value->status == "active";
+        });
+
+        $set_response = $filtered->all();
+        if(empty($set_response)) {
+            $search_response = 'Nothing Found';
+        } else {
+            $search_response = $set_response;
         }
 
         return response()->json([
             'books_from_authors' => $search_response,
-            'response_count' => count($book_results)
+            'response_count' => count($set_response)
         ], 200);
+    }
+
+    public function user(Request $request)
+    {
+        return $request->user();
     }
 
     public function all_books()
@@ -228,37 +251,6 @@ class AuthorController extends Controller
         return response()->json([
             'books_from_authors' => $search_response,
             'response_count' => count($all_books)
-        ], 200);
-    }
-
-    public function register_user(Request $request)
-    {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6'
-        ]);
-
-        $user = new User;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->slug = Str::slug($request->first_name.' '.$request->last_name, '-');
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        $role = new Role;
-        $role->role = "author";
-        $user->role()->save($role);
-
-        $status = new StatusAuthor();
-        $status->status = "active";
-        $user->status()->save($status);
-
-        return response()->json([
-            'response' => $user,
-            'response_code' => 1
         ], 200);
     }
 

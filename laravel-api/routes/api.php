@@ -33,6 +33,7 @@ Route::middleware(['auth:api', 'role'])->group(function() {
 //    Route::middleware(['scope:admin,author'])->post('/search_results', [\App\Http\Controllers\AuthorController::class, 'search_results']);
 
     Route::middleware(['scope:admin,author'])->get('/all_books', [\App\Http\Controllers\AuthorController::class, 'all_books']);
+    Route::middleware(['scope:admin,author'])->get('/user', [\App\Http\Controllers\AuthorController::class, 'user']);
 
     Route::middleware(['scope:author'])->post('/add_books', [\App\Http\Controllers\AuthorController::class, 'add_books']);
     Route::middleware(['scope:author'])->post('/edit_books', [\App\Http\Controllers\AuthorController::class, 'edit_books']);
