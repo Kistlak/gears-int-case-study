@@ -74,7 +74,7 @@ class AuthorController extends Controller
                 'price' => $request->price
             ]);
 
-            $message = $save_books;
+            $message = "Successfully added";
             $response_code = 1;
         } else {
             $message = "You have no permission to do this";
@@ -82,7 +82,7 @@ class AuthorController extends Controller
         }
 
         return response()->json([
-            'response' => $message,
+            'message' => $message,
             'response_code' => $response_code
         ], 200);
     }

@@ -9,6 +9,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {DataTablesModule} from 'angular-datatables';
+import { AddBooksComponent } from './add-books/add-books.component';
 
 
 
@@ -17,7 +19,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
       PublicComponent,
       HomeComponent,
       LoginComponent,
-      RegisterComponent
+      RegisterComponent,
+      AddBooksComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DataTablesModule
   ]
 })
 export class PublicModule { }

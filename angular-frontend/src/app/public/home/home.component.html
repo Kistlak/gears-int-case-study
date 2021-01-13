@@ -1,7 +1,7 @@
 <form [formGroup]="form" (submit)="submit()">
     <div class="form-group">
         <label for="search_book">Email address</label>
-        <input type="text" formControlName="search_book" class="form-control" id="search_book" placeholder="Enter Author Name or Book Title">
+        <input type="text" formControlName="search_book" class="form-control" id="search_book" placeholder="Enter Author First Name or Last Name or Book Title">
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Search</button>
 </form>
