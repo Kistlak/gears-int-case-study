@@ -1,0 +1,39 @@
+<div class="row" style="align-items: center;">
+    <div class="col-md-6">
+        <h1 *ngIf="user">
+            Hi, {{user.first_name}} {{user.last_name}}
+        </h1>
+    </div>
+    <div class="col-md-6" style="">
+        <a class="btn btn-primary" routerLink="/add_books" style="float: right;">Add Books</a>
+    </div>
+</div>
+
+<p *ngIf="!loggedIn">
+    You have no permission to access this page
+</p>
+
+<div *ngIf="allStatus">
+    <table class="table table-striped" id="tabela">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+            <th scope="col">Status (Click to change)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let allDetail of allDetails">
+            <th scope="row">{{allDetail.id}}</th>
+            <td>{{allDetail.first_name}} {{allDetail.last_name}}</td>
+            <td>{{allDetail.role}}</td>
+            <td id="{{allDetail.id}}" (click)="change_status({ user_id:allDetail.id, status:allDetail.status})" style="color: blue; cursor: pointer;">
+                {{allDetail.status}}
+                <input type="hidden" value="{{allDetail.id}}">
+                <input type="hidden" value="{{allDetail.status}}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

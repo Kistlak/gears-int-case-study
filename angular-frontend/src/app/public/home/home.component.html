@@ -1,0 +1,21 @@
+<form [formGroup]="form" (submit)="submit()">
+    <div class="form-group">
+        <label for="search_book">Email address</label>
+        <input type="text" formControlName="search_book" class="form-control" id="search_book" placeholder="Enter Author First Name or Last Name or Book Title">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Search</button>
+</form>
+
+<div class="" *ngIf="searchStatus">
+    <div *ngFor="let searchResult of searchResults" style="background: lightblue; padding: 10px; margin-bottom: 20px; margin-top: 20px;">
+        <div class="book_name" style="font-size: 28px;">{{searchResult.book_name}}</div>
+        <div class="author_name" style="font-size: 22px;">By {{searchResult.first_name}} {{searchResult.last_name}}</div>
+        <div class="price" style="font-size: 20px;">Rs {{searchResult.price}}</div>
+    </div>
+</div>
+
+<div class="" *ngIf="!searchStatus">
+    <div style="background: lightblue; padding: 10px; font-size: 20px; margin-bottom: 20px; margin-top: 20px;">
+        Nothing Found !!
+    </div>
+</div>
