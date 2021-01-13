@@ -9,14 +9,13 @@ class Role extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
+        'user_id',
         'role'
     ];
 
-    public function user_role()
-    {
-        return $this->hasOne(Role::class);
-    }
+//    public function user_role()
+//    {
+//        return $this->hasMany(User::class);
+//    }
 }

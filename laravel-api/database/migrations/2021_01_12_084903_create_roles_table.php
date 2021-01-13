@@ -14,10 +14,12 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
+            $table->id();
             $table->integer('user_id')->unsigned();
             $table->string('role');
+            $table->timestamps();
 
-            $table->primary(['user_id', 'role']);
+//            $table->primary(['user_id', 'role']);
         });
     }
 

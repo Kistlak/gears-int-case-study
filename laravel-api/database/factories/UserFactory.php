@@ -22,9 +22,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $first_name = $this->faker->firstName;
+        $last_name = $this->faker->lastName;
+
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'slug' => Str::slug($first_name.' '.$last_name, '-'),
             'email' => $this->faker->unique()->safeEmail,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Role;
+use App\Models\StatusAuthor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RoleFactory extends Factory
+class StatusAuthorFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Role::class;
+    protected $model = StatusAuthor::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            'role' => $this->faker->randomElement(['admin', 'author'])
+            'status' => $this->faker->randomElement(['active', 'inactive'])
         ];
     }
 }

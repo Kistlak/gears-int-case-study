@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Mockery\Exception;
 use Throwable;
+use Laravel\Passport\Exceptions\MissingScopeException;
 
 class Handler extends ExceptionHandler
 {
@@ -36,5 +39,24 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if($e instanceof MissingScopeException) {
+            return response()->json([
+               "message" => "You are not authorized to do this"
+            ]);
+        }
+
+        if($e instanceof ValidationException) {
+            return response([
+               'errors' => $e->errors()
+            ], 400);
+        }
+
+        return response(['error' => $e->errors()], $e->getCode() ?: 400);
+
+//        return parent::render($request, $e);
     }
 }
