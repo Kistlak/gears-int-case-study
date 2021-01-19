@@ -22,7 +22,7 @@ class StatusAuthorFactory extends Factory
     public function definition()
     {
         return [
-            'status' => $this->faker->randomElement(['active', 'inactive'])
+            'status' => $this->faker->randomElement(['1', '0'])
         ];
     }
 }

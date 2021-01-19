@@ -1,5 +1,14 @@
 <h1>Please Login</h1>
 
+<p *ngIf="regErr" style="color: red">
+    {{errText.password}} <br>
+    {{errText.email}}
+</p>
+
+<p *ngIf="regTwo">
+    Invalid email or password
+</p>
+
 <form [formGroup]="form" (submit)="submit()">
     <div class="form-group">
         <label for="email">Email address</label>

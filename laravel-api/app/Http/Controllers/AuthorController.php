@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Classes\Search;
+use App\Http\Classes\UserBooks;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\Book;
 use App\Models\Role;
@@ -39,7 +41,7 @@ class AuthorController extends Controller
         $user->role()->save($role);
 
         $status = new StatusAuthor();
-        $status->status = "active";
+        $status->status = "1";
         $user->status()->save($status);
 
         return response()->json([
@@ -193,43 +195,19 @@ class AuthorController extends Controller
             'search_book' => 'required'
         ]);
 
-        $search_keyword = $request->search_book;
-
-        $find_books_from_authors = DB::table('users')
-            ->join('books', 'users.id', '=', 'books.user_id')
-            ->join('roles', 'users.id', '=', 'roles.user_id')
-            ->join('status_authors', 'users.id', '=', 'status_authors.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.slug', 'books.*', 'roles.*', 'status_authors.*')
-            ->where('status_authors.status', '=', 'active')
-            ->where('roles.role', '=', 'author')
-            ->where('users.first_name', 'like', '%' . $search_keyword . '%')
-            ->orWhere('users.slug', 'like', '%' . $search_keyword . '%')
-            ->orWhere('users.last_name', 'like', '%' . $search_keyword . '%')
-            ->orWhere('books.book_name', 'like', '%' . $search_keyword . '%')
-            ->get();
-
-        $collection = collect($find_books_from_authors);
-
-        $filtered = $collection->filter(function ($value, $key) {
-            return $value->status == "active";
-        });
-
-        $set_response = $filtered->all();
-        if(empty($set_response)) {
-            $search_response = 'Nothing Found';
-        } else {
-            $search_response = $set_response;
-        }
-
-        return response()->json([
-            'books_from_authors' => $search_response,
-            'response_count' => count($set_response)
-        ], 200);
+        $run_main_search = new Search();
+        return $run_main_search->search_results($request->search_book);
     }
 
     public function user(Request $request)
     {
-        return $request->user();
+        $run_main_search = new UserBooks();
+        $set_all_books = $run_main_search->search_results($request->user()->id);
+
+        return response()->json([
+            'user' => $request->user(),
+            'all_books' => $set_all_books
+        ], 200);
     }
 
     public function all_books()
