@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserBooks extends Search
 {
-    public function search_results($user_id)
+    public function searchResults($user_id)
     {
         $find_books_from_authors = DB::table('users')
             ->join('books', 'users.id', '=', 'books.user_id')

@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
-Route::post('/search_results', [\App\Http\Controllers\AuthorController::class, 'search_results']);
-Route::post('/register_user', [\App\Http\Controllers\AuthorController::class, 'register_user']);
+Route::post('/search_results', [\App\Http\Controllers\AuthorController::class, 'searchResults']);
+Route::post('/register_user', [\App\Http\Controllers\AuthorController::class, 'registerUser']);
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
@@ -30,15 +30,13 @@ Route::middleware(['auth:api', 'role'])->group(function() {
         return \App\Models\User::get();
     });
 
-//    Route::middleware(['scope:admin,author'])->post('/search_results', [\App\Http\Controllers\AuthorController::class, 'search_results']);
-
-    Route::middleware(['scope:admin,author'])->get('/all_books', [\App\Http\Controllers\AuthorController::class, 'all_books']);
+    Route::middleware(['scope:admin,author'])->get('/all_books', [\App\Http\Controllers\AuthorController::class, 'allBooks']);
     Route::middleware(['scope:admin,author'])->get('/user', [\App\Http\Controllers\AuthorController::class, 'user']);
 
-    Route::middleware(['scope:author'])->post('/add_books', [\App\Http\Controllers\AuthorController::class, 'add_books']);
-    Route::middleware(['scope:author'])->post('/edit_books', [\App\Http\Controllers\AuthorController::class, 'edit_books']);
-    Route::middleware(['scope:author'])->post('/delete_books', [\App\Http\Controllers\AuthorController::class, 'delete_books']);
+    Route::middleware(['scope:author'])->post('/add_books', [\App\Http\Controllers\AuthorController::class, 'addBooks']);
+    Route::middleware(['scope:author'])->post('/edit_books', [\App\Http\Controllers\AuthorController::class, 'editBooks']);
+    Route::middleware(['scope:author'])->post('/delete_books', [\App\Http\Controllers\AuthorController::class, 'deleteBooks']);
 
-    Route::middleware(['scope:admin'])->get('/all_users', [\App\Http\Controllers\AuthorController::class, 'all_users']);
-    Route::middleware(['scope:admin'])->post('/change_status', [\App\Http\Controllers\AuthorController::class, 'change_status']);
+    Route::middleware(['scope:admin'])->get('/all_users', [\App\Http\Controllers\AuthorController::class, 'allUsers']);
+    Route::middleware(['scope:admin'])->post('/change_status', [\App\Http\Controllers\AuthorController::class, 'changeStatus']);
 });

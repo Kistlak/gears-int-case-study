@@ -19,7 +19,7 @@ use Ramsey\Collection\Collection;
 
 class AuthorController extends Controller
 {
-    public function register_user(Request $request)
+    public function registerUser(Request $request)
     {
         $request->validate([
             'first_name' => 'required',
@@ -50,7 +50,7 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function add_books(Request $request)
+    public function addBooks(Request $request)
     {
         $request->validate([
             'user_id' => 'required',
@@ -89,7 +89,7 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function edit_books(Request $request)
+    public function editBooks(Request $request)
     {
         $request->validate([
             'user_id' => 'required',
@@ -142,7 +142,7 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function delete_books(Request $request)
+    public function deleteBooks(Request $request)
     {
         $request->validate([
             'user_id' => 'required',
@@ -189,14 +189,14 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function search_results(Request $request)
+    public function searchResults(Request $request)
     {
         $request->validate([
             'search_book' => 'required'
         ]);
 
         $run_main_search = new Search();
-        return $run_main_search->search_results($request->search_book);
+        return $run_main_search->searchResults($request->search_book);
     }
 
     public function user(Request $request)
@@ -210,7 +210,7 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function all_books()
+    public function allBooks()
     {
         $all_books = DB::table('books')
             ->join('users','users.id','books.user_id')
@@ -232,7 +232,7 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function all_users()
+    public function allUsers()
     {
         $all_users = DB::table('users')
             ->join('roles', 'users.id', '=', 'roles.user_id')
@@ -246,7 +246,7 @@ class AuthorController extends Controller
         ], 200);
     }
 
-    public function change_status(Request $request)
+    public function changeStatus(Request $request)
     {
         $request->validate([
             'user_id' => 'required',
