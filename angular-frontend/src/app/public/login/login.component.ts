@@ -11,6 +11,9 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   form: any = FormGroup;
+  regErr: any = false;
+  errText: any;
+  regTwo: any = false;
 
   constructor(private fb: FormBuilder,
               private http: HttpClient,
@@ -34,10 +37,18 @@ export class LoginComponent implements OnInit {
    this.http.post('http://127.0.0.1:8000/api/login', data).subscribe(
        (result: any) => {
          localStorage.setItem('token', result.token);
+         this.regErr = false;
          this.router.navigate(['/secure']);
        },
        error => {
-         console.log(error);
+           if(error.error.error) {
+               this.regErr = true;
+               this.regTwo = false;
+               this.errText = error.error.error;
+           } else {
+               this.regTwo = true;
+               this.regErr = false;
+           }
        }
    );
 
