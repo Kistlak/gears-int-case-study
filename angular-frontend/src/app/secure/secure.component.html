@@ -1,7 +1,7 @@
 <div class="row" style="align-items: center;">
     <div class="col-md-6">
         <h1 *ngIf="user">
-            Hi, {{user.first_name}} {{user.last_name}}
+            Hi, {{user.user.first_name}} {{user.user.last_name}}
         </h1>
     </div>
     <div class="col-md-6" style="">
@@ -28,12 +28,36 @@
             <th scope="row">{{allDetail.id}}</th>
             <td>{{allDetail.first_name}} {{allDetail.last_name}}</td>
             <td>{{allDetail.role}}</td>
-            <td id="{{allDetail.id}}" (click)="change_status({ user_id:allDetail.id, status:allDetail.status})" style="color: blue; cursor: pointer;">
-                {{allDetail.status}}
-                <input type="hidden" value="{{allDetail.id}}">
-                <input type="hidden" value="{{allDetail.status}}">
+            <td *ngIf="allDetail.status == 1;else elseBlock" (click)="change_status({ user_id:allDetail.id, status:allDetail.status})" style="color: blue; cursor: pointer;">
+                Active
             </td>
+            <ng-template #elseBlock>
+                <td (click)="change_status({ user_id:allDetail.id, status:allDetail.status})" style="color: blue; cursor: pointer;">
+                    Inactive
+                </td>
+            </ng-template>
         </tr>
         </tbody>
     </table>
+</div>
+
+<div *ngIf="user">
+    <div *ngIf="user.all_books.response_count !== 0">
+        <table class="table table-striped" id="tabela">
+            <thead>
+            <tr>
+                <th scope="col">Book Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let allDetail of user.all_books.books_from_authors">
+                <th>{{allDetail.book_name}}</th>
+                <th>{{allDetail.description}}</th>
+                <th>{{allDetail.price}}</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

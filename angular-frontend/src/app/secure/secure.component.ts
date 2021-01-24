@@ -57,10 +57,10 @@ export class SecureComponent implements OnInit {
 
     change_status(ManageUpdate: any)
     {
-        if(ManageUpdate.status === "active") {
-            this.setStatus = "inactive";
+        if(ManageUpdate.status === "1") {
+            this.setStatus = 0;
         } else {
-            this.setStatus = "active";
+            this.setStatus = 1;
         }
 
         const data = {

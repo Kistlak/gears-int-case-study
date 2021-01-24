@@ -35,7 +35,7 @@ export class AddBooksComponent implements OnInit {
         // get current user info
         this.http.get('http://127.0.0.1:8000/api/user', {headers: this.headersNew}).subscribe(
             (result: any) => {
-                this.userId = result.id;
+                this.userId = result.user.id;
             },
             error => {
                 localStorage.removeItem('token');
