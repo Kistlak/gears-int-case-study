@@ -9,6 +9,7 @@
 namespace App\Http\Classes;
 
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class Search
@@ -27,6 +28,10 @@ class Search
             ->orWhere('users.last_name', 'like', '%' . $search_keyword . '%')
             ->orWhere('books.book_name', 'like', '%' . $search_keyword . '%')
             ->get();
+
+        $find = User::with('role', 'book', 'status')
+//        ->where('book.book_name', 'like', '%' . $search_keyword . '%')
+        ->get();
 
         $collection = collect($find_books_from_authors);
 

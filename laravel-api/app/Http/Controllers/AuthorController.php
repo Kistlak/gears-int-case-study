@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Classes\Search;
 use App\Http\Classes\UserBooks;
-use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Book;
 use App\Models\Role;
 use App\Models\StatusAuthor;
@@ -48,7 +48,7 @@ class AuthorController extends Controller
             'response' => $user,
             'response_code' => 1
         ], 200);
-    }
+    } //done
 
     public function addBooks(Request $request)
     {
@@ -87,7 +87,7 @@ class AuthorController extends Controller
             'message' => $message,
             'response_code' => $response_code
         ], 200);
-    }
+    } //done
 
     public function editBooks(Request $request)
     {
@@ -140,7 +140,7 @@ class AuthorController extends Controller
             'response' => $message,
             'response_code' => $response_code
         ], 200);
-    }
+    } //done
 
     public function deleteBooks(Request $request)
     {
@@ -187,7 +187,7 @@ class AuthorController extends Controller
             'response' => $message,
             'response_code' => $response_code
         ], 200);
-    }
+    } //done
 
     public function searchResults(Request $request)
     {
@@ -197,18 +197,18 @@ class AuthorController extends Controller
 
         $run_main_search = new Search();
         return $run_main_search->searchResults($request->search_book);
-    }
+    } //done - but need to know more about relationships
 
     public function user(Request $request)
     {
         $run_main_search = new UserBooks();
-        $set_all_books = $run_main_search->search_results($request->user()->id);
+        $set_all_books = $run_main_search->searchResults($request->user()->id);
 
         return response()->json([
             'user' => $request->user(),
             'all_books' => $set_all_books
         ], 200);
-    }
+    } //done
 
     public function allBooks()
     {
@@ -230,7 +230,7 @@ class AuthorController extends Controller
             'books_from_authors' => $search_response,
             'response_count' => count($all_books)
         ], 200);
-    }
+    } //done
 
     public function allUsers()
     {
@@ -244,7 +244,7 @@ class AuthorController extends Controller
             'all_users' => $all_users,
             'response_count' => count($all_users)
         ], 200);
-    }
+    } //done
 
     public function changeStatus(Request $request)
     {
@@ -281,5 +281,5 @@ class AuthorController extends Controller
             'response' => $message,
             'response_code' => $response_code
         ], 200);
-    }
+    } //done
 }
