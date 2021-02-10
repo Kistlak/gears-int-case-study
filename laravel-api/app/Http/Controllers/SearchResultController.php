@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Classes\Search;
+use App\Http\Requests\BookListQuery;
+use App\Models\StatusAuthor;
 use Illuminate\Http\Request;
 
 class SearchResultController extends Controller
 {
-    public function index()
+    public function index(BookListQuery $bookListQuery)
     {
+//        $booksZ = $bookListQuery
+//            ->parseAllowedIncludes([
+//                'book',
+//                'status',
+//            ])
+//            ->get()
+//            ->toArray();
+
         if(!request()->query('searchKeyword')) {
             return response()->json([
                 'data' => "Enter search keyword"

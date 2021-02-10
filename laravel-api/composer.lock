@@ -4,8 +4,123 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "961674581bfd3b33dad1ee50a4db4c42",
+    "content-hash": "1ce250e0423fc31cae84f395b6879d1a",
     "packages": [
+        {
+            "name": "apichef/laravel-request-query-helper",
+            "version": "0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apichef/laravel-request-query-helper.git",
+                "reference": "f357bcc1324d0bfc0444f8efa06abae2b8c07251"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apichef/laravel-request-query-helper/zipball/f357bcc1324d0bfc0444f8efa06abae2b8c07251",
+                "reference": "f357bcc1324d0bfc0444f8efa06abae2b8c07251",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": "~7.2 || ^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0",
+                "phpunit/phpunit": "^8.0|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "ApiChef\\RequestQueryHelper\\RequestQueryHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ApiChef\\RequestQueryHelper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milroy E. Fraser",
+                    "email": "milroy@outlook.com",
+                    "homepage": "https://github.com/milroyfraser",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily interact with JSON-API query params.",
+            "homepage": "https://github.com/apichef/laravel-request-query-helper",
+            "keywords": [
+                "MilroyFraser",
+                "laravel-json-api-query-params"
+            ],
+            "time": "2020-12-26T20:09:56+00:00"
+        },
+        {
+            "name": "apichef/laravel-request-to-eloquent",
+            "version": "v0.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apichef/laravel-request-to-eloquent.git",
+                "reference": "1c33c32a60a366c94f92b653f7b61a7337fff89a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apichef/laravel-request-to-eloquent/zipball/1c33c32a60a366c94f92b653f7b61a7337fff89a",
+                "reference": "1c33c32a60a366c94f92b653f7b61a7337fff89a",
+                "shasum": ""
+            },
+            "require": {
+                "apichef/laravel-request-query-helper": "^0.0.4",
+                "php": "~7.2 || ^8.0"
+            },
+            "require-dev": {
+                "laravel/legacy-factories": "^1.1",
+                "orchestra/testbench": "^5.0|^6.0",
+                "phpunit/phpunit": "^8.0|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ApiChef\\RequestToEloquent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milroy E. Fraser",
+                    "email": "milroy@outlook.com",
+                    "homepage": "https://github.com/milroyfraser",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily translate request query string to Eloquent query.",
+            "homepage": "https://github.com/apichef/laravel-request-to-eloquent",
+            "keywords": [
+                "apichef",
+                "laravel-request-to-eloquent"
+            ],
+            "time": "2020-12-27T17:13:47+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.2",

@@ -122,6 +122,8 @@
       <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
       <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
+      <path value="$PROJECT_DIR$/vendor/apichef/laravel-request-to-eloquent" />
+      <path value="$PROJECT_DIR$/vendor/apichef/laravel-request-query-helper" />
     </include_path>
   </component>
   <component name="PhpUnit">

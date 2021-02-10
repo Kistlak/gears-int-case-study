@@ -13,4 +13,15 @@ class StatusAuthor extends Model
         'user_id',
         'status'
     ];
+
+    public function authorStatus()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
 }

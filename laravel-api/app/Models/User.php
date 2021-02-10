@@ -57,4 +57,11 @@ class User extends Authenticatable
     {
         return $this->getAllPermissions();
     }
+
+    public function scopeSearch($query, $search_keyword)
+    {
+        return $query->where("first_name","like","%{$search_keyword}%")
+            ->orWhere('users.slug', 'like', '%' . $search_keyword . '%')
+            ->orWhere('users.last_name', 'like', '%' . $search_keyword . '%');
+    }
 }
