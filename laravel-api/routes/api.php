@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 Route::get('/results', [\App\Http\Controllers\SearchResultController::class, 'index']);
 Route::post('/users', [\App\Http\Controllers\UserController::class, 'store']);
