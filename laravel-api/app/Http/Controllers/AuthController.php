@@ -18,10 +18,11 @@ class AuthController extends Controller
         //authenticate user request
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $userRole = $user->role()->first();
+            $userRole = $user->getRoleNames()->first();
+//            $userRole = $user->role()->first();
 
             if ($userRole) {
-                $this->scope = $userRole->role;
+                $this->scope = $userRole;
             }
 
             $token = $user->createToken($user->email.'-'.now(), [$this->scope]);
