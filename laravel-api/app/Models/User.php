@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_AUTHOR = 'author';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -25,21 +25,15 @@ class User extends Authenticatable
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $appends = [
+        'permission'
+    ];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -57,5 +51,17 @@ class User extends Authenticatable
     public function status()
     {
         return $this->hasOne(StatusAuthor::class);
+    }
+
+    public function getPermissionAttribute()
+    {
+        return $this->getAllPermissions();
+    }
+
+    public function scopeSearch($query, $search_keyword)
+    {
+        return $query->where("first_name","like","%{$search_keyword}%")
+            ->orWhere('users.slug', 'like', '%' . $search_keyword . '%')
+            ->orWhere('users.last_name', 'like', '%' . $search_keyword . '%');
     }
 }

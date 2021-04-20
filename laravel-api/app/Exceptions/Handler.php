@@ -43,20 +43,20 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if($e instanceof MissingScopeException) {
-            return response()->json([
-               "message" => "You are not authorized to do this"
-            ]);
-        }
+//        if($e instanceof MissingScopeException) {
+//            return response()->json([
+//               "message" => "You are not authorized to do this"
+//            ]);
+//        }
+//
+//        if($e instanceof ValidationException) {
+//            return response([
+//               'errors' => $e->errors()
+//            ], 400);
+//        }
 
-        if($e instanceof ValidationException) {
-            return response([
-               'errors' => $e->errors()
-            ], 400);
-        }
+//        return response(['error' => $e->errors()], $e->getCode() ?: 400);
 
-        return response(['error' => $e->errors()], $e->getCode() ?: 400);
-
-//        return parent::render($request, $e);
+        return parent::render($request, $e);
     }
 }
